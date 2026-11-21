@@ -1,0 +1,112 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Carryo Obsidian",
+    "theme_version": "1.0.0",
+    "theme_author": "Carryo by Warmland",
+    "theme_documentation_url": "https://help.shopify.com/en/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com"
+  },
+  {
+    "name": "Brand & Colours",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Custom Logo Image",
+        "info": "Leave blank to use the built-in Carryo gold emblem logo."
+      },
+      {
+        "type": "range",
+        "id": "logo_height",
+        "min": 28,
+        "max": 64,
+        "step": 2,
+        "unit": "px",
+        "label": "Logo Height",
+        "default": 40
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background (Obsidian)",
+        "default": "#080809"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Card Surface",
+        "default": "#111114"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border",
+        "default": "#26262C"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent (Carryo Gold)",
+        "default": "#E0B052"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_hover",
+        "label": "Accent Hover",
+        "default": "#ECC46E"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Primary Text (Ivory)",
+        "default": "#F5F3EE"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Secondary Text (Muted)",
+        "default": "#A1A1AA"
+      }
+    ]
+  },
+  {
+    "name": "Cart Drawer & Shipping",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_cart_drawer",
+        "label": "Enable slide-out Bag Drawer",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free Shipping Threshold (in store currency)",
+        "default": 1500
+      },
+      {
+        "type": "text",
+        "id": "promo_hint_text",
+        "label": "Cart Drawer Promo Hint",
+        "default": "Use code CARRYO10 at checkout for 10% off"
+      },
+      {
+        "type": "text",
+        "id": "support_contact",
+        "label": "Support Contact Line",
+        "default": "Support: care@carryo.store · Mon–Sat, 9 AM – 7 PM IST"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon Image"
+      }
+    ]
+  }
+]

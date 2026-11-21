@@ -1,0 +1,139 @@
+<section class="section-block section-border">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+        <h2 class="section-title section-title--md">{{ section.settings.heading }}</h2>
+      </div>
+      <p class="text-muted text-xs">{{ section.settings.note }}</p>
+    </div>
+
+    <div class="lookbook-grid">
+      {%- for block in section.blocks -%}
+        {%- assign fallback_asset = 'carryo-black-lifestyle.jpg' -%}
+        {%- if block.settings.colour_key == 'tan' -%}
+          {%- assign fallback_asset = 'carryo-tan-lifestyle.jpg' -%}
+        {%- elsif block.settings.colour_key == 'grey' -%}
+          {%- assign fallback_asset = 'carryo-grey-lifestyle.jpg' -%}
+        {%- endif -%}
+
+        <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="lookbook-card" {{ block.shopify_attributes }}>
+          <div class="lookbook-card__media">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="600" height="450">
+            {%- else -%}
+              <img src="{{ fallback_asset | asset_url }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="600" height="450">
+            {%- endif -%}
+          </div>
+          <div class="lookbook-card__body">
+            <div>
+              <p class="lookbook-card__title">{{ block.settings.title }}</p>
+              <p class="lookbook-card__sub">{{ block.settings.subtitle }}</p>
+            </div>
+            <svg class="lookbook-card__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carryo Commute Lookbook",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Carried Every Day"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Designed to look like an everyday brief, not a lunchbox."
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Right Side Note",
+      "default": "Also available in Light Blue & Light Pink"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "lookbook_item",
+      "name": "Lookbook Card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "colour_key",
+          "label": "Built-in Photo Fallback",
+          "options": [
+            { "value": "black", "label": "Black Commute" },
+            { "value": "tan", "label": "Tan Commute" },
+            { "value": "grey", "label": "Grey Commute" }
+          ],
+          "default": "black"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Image (optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Carryo in Black"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Classic embossed obsidian leatherette with gold Carryo emblem"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carryo Commute Lookbook",
+      "blocks": [
+        {
+          "type": "lookbook_item",
+          "settings": {
+            "colour_key": "black",
+            "title": "Carryo in Black",
+            "subtitle": "Classic embossed obsidian leatherette with gold Carryo emblem"
+          }
+        },
+        {
+          "type": "lookbook_item",
+          "settings": {
+            "colour_key": "tan",
+            "title": "Carryo in Tan",
+            "subtitle": "Warm saddle-tan textured finish paired with black zip trim"
+          }
+        },
+        {
+          "type": "lookbook_item",
+          "settings": {
+            "colour_key": "grey",
+            "title": "Carryo in Grey",
+            "subtitle": "Modern architectural slate grey for everyday work commutes"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

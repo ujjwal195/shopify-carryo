@@ -1,0 +1,313 @@
+{%- assign large_product = section.settings.large_product | default: all_products['carryo-large-electric-lunchbox'] -%}
+{%- assign small_product = section.settings.small_product | default: all_products['carryo-small-electric-lunchbox'] -%}
+
+{%- capture hero_products_json -%}
+{
+  "large": {
+    "title": {{ large_product.title | default: 'Carryo Large Electric Lunchbox' | json }},
+    "shortName": "Carryo Large",
+    "priceFormatted": {% if large_product != blank %}{{ large_product.price | money | json }}{% else %}{{ section.settings.large_fallback_price | json }}{% endif %},
+    "url": {{ large_product.url | default: '/collections/all' | json }},
+    "variants": {
+      {%- if large_product != blank -%}
+        {%- for v in large_product.variants -%}
+          {%- assign v_key = v.title | downcase | handleize -%}
+          {{ v_key | json }}: {{ v.id }}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      {%- endif -%}
+    },
+    "defaultVariantId": {{ large_product.selected_or_first_available_variant.id | default: 'null' }}
+  },
+  "small": {
+    "title": {{ small_product.title | default: 'Carryo Small Electric Lunchbox' | json }},
+    "shortName": "Carryo Small",
+    "priceFormatted": {% if small_product != blank %}{{ small_product.price | money | json }}{% else %}{{ section.settings.small_fallback_price | json }}{% endif %},
+    "url": {{ small_product.url | default: '/collections/all' | json }},
+    "variants": {
+      {%- if small_product != blank -%}
+        {%- for v in small_product.variants -%}
+          {%- assign v_key = v.title | downcase | handleize -%}
+          {{ v_key | json }}: {{ v.id }}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      {%- endif -%}
+    },
+    "defaultVariantId": {{ small_product.selected_or_first_available_variant.id | default: 'null' }}
+  }
+}
+{%- endcapture -%}
+
+<section id="top" class="hero-section" data-carryo-hero>
+  <script type="application/json" data-hero-products>{{ hero_products_json }}</script>
+
+  <div class="container">
+    <div class="hero-grid">
+      <!-- Left Narrative & Quick Configurator -->
+      <div class="hero-left">
+        <div>
+          <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+          <h1 class="hero-heading">{{ section.settings.heading }}</h1>
+          <p class="hero-subtext">{{ section.settings.subtext }}</p>
+
+          <!-- Size Selector -->
+          <div class="hero-block-sep">
+            <div class="label-row">
+              <span class="label-strong">{{ 'sections.product.select_size' | t }}</span>
+              <span class="mono price-gold" data-hero-price>
+                {%- if large_product != blank -%}{{ large_product.price | money }}{%- else -%}{{ section.settings.large_fallback_price }}{%- endif -%}
+              </span>
+            </div>
+
+            <div class="size-grid">
+              <button type="button" class="size-card is-active" data-hero-size="large">
+                <span class="size-card__name">Carryo Large</span>
+                <span class="size-card__meta">3 Steel Containers &middot; 1,350 ml</span>
+              </button>
+              <button type="button" class="size-card" data-hero-size="small">
+                <span class="size-card__name">Carryo Small</span>
+                <span class="size-card__meta">2 Steel Containers &middot; 900 ml</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 5-Colour Interactive Swatch Picker -->
+          <div class="hero-swatches">
+            <div class="label-row">
+              <span class="text-muted">
+                Colour: <strong class="text-ivory" data-hero-colour-label>Black</strong>
+              </span>
+              <span class="text-muted" data-hero-preview-note hidden>Studio preview &middot; Available to order</span>
+            </div>
+
+            <div class="swatch-row swatch-row--lg">
+              <button type="button" class="swatch-btn is-active" data-hero-colour="black" data-colour-name="Black" aria-label="Select Black" title="Black">
+                <span class="swatch-dot" style="background-color: #17181B;"></span>
+              </button>
+              <button type="button" class="swatch-btn" data-hero-colour="tan" data-colour-name="Tan" aria-label="Select Tan" title="Tan">
+                <span class="swatch-dot" style="background-color: #A54D22;"></span>
+              </button>
+              <button type="button" class="swatch-btn" data-hero-colour="grey" data-colour-name="Grey" aria-label="Select Grey" title="Grey">
+                <span class="swatch-dot" style="background-color: #767B82;"></span>
+              </button>
+              <button type="button" class="swatch-btn" data-hero-colour="light-blue" data-colour-name="Light Blue" aria-label="Select Light Blue" title="Light Blue">
+                <span class="swatch-dot" style="background-color: #93BEDB;"></span>
+              </button>
+              <button type="button" class="swatch-btn" data-hero-colour="light-pink" data-colour-name="Light Pink" aria-label="Select Light Pink" title="Light Pink">
+                <span class="swatch-dot" style="background-color: #E6B9C5;"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Primary CTA + Secondary Link -->
+          <div class="hero-ctas">
+            <button type="button" class="btn btn-gold btn-lg" data-hero-add>
+              <span data-hero-add-label>Add Carryo Large (Black)</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+              </svg>
+            </button>
+            <a href="{{ large_product.url | default: '#shop' }}" class="btn-link" data-hero-details-link>
+              Full Gallery &amp; Specs
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-footnote">
+          <span>{{ section.settings.shipping_note }}</span>
+          <a href="#compare" class="link-ivory">Compare Large &amp; Small</a>
+        </div>
+      </div>
+
+      <!-- Right Real Product Photography Stage -->
+      <div class="hero-right">
+        <div class="hero-stage">
+          <img
+            src="{{ 'carryo-black-action.jpg' | asset_url }}"
+            alt="Carryo Large Electric Lunchbox in Black"
+            class="hero-stage__img"
+            data-hero-main-img
+            loading="eager"
+            width="960"
+            height="720"
+          >
+          <div class="hero-stage__svg" data-hero-svg="light-blue-large" hidden>
+            {% render 'colour-swatch-svg', colour: 'light-blue', size: 'large' %}
+          </div>
+          <div class="hero-stage__svg" data-hero-svg="light-blue-small" hidden>
+            {% render 'colour-swatch-svg', colour: 'light-blue', size: 'small' %}
+          </div>
+          <div class="hero-stage__svg" data-hero-svg="light-pink-large" hidden>
+            {% render 'colour-swatch-svg', colour: 'light-pink', size: 'large' %}
+          </div>
+          <div class="hero-stage__svg" data-hero-svg="light-pink-small" hidden>
+            {% render 'colour-swatch-svg', colour: 'light-pink', size: 'small' %}
+          </div>
+        </div>
+
+        <!-- 5-Angle Interactive Strip -->
+        <div class="angle-strip" data-hero-angles>
+          <button type="button" class="angle-thumb is-active" data-hero-angle="heroAction">
+            <div class="angle-thumb__img-wrap">
+              <img src="{{ 'carryo-black-action.jpg' | asset_url }}" alt="In Action" data-angle-img="heroAction" loading="lazy" width="220" height="165">
+            </div>
+            <span class="angle-thumb__label">In Action</span>
+          </button>
+          <button type="button" class="angle-thumb" data-hero-angle="front">
+            <div class="angle-thumb__img-wrap">
+              <img src="{{ 'carryo-black-front.jpg' | asset_url }}" alt="Front View" data-angle-img="front" loading="lazy" width="220" height="165">
+            </div>
+            <span class="angle-thumb__label">Front</span>
+          </button>
+          <button type="button" class="angle-thumb" data-hero-angle="kitDesk">
+            <div class="angle-thumb__img-wrap">
+              <img src="{{ 'carryo-black-kit.jpg' | asset_url }}" alt="Full Set" data-angle-img="kitDesk" loading="lazy" width="220" height="165">
+            </div>
+            <span class="angle-thumb__label">Full Set</span>
+          </button>
+          <button type="button" class="angle-thumb" data-hero-angle="lifestyle">
+            <div class="angle-thumb__img-wrap">
+              <img src="{{ 'carryo-black-lifestyle.jpg' | asset_url }}" alt="Carry Look" data-angle-img="lifestyle" loading="lazy" width="220" height="165">
+            </div>
+            <span class="angle-thumb__label">Carry Look</span>
+          </button>
+          <button type="button" class="angle-thumb" data-hero-angle="interior">
+            <div class="angle-thumb__img-wrap">
+              <img src="{{ 'carryo-black-interior.jpg' | asset_url }}" alt="Interior" data-angle-img="interior" loading="lazy" width="220" height="165">
+            </div>
+            <span class="angle-thumb__label">Interior</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4-Column Feature Strip -->
+    <div class="feature-strip">
+      <div>
+        <p class="feature-strip__val mono text-gold">{{ section.settings.stat_1_title }}</p>
+        <p class="feature-strip__sub">{{ section.settings.stat_1_sub }}</p>
+      </div>
+      <div>
+        <p class="feature-strip__val mono">{{ section.settings.stat_2_title }}</p>
+        <p class="feature-strip__sub">{{ section.settings.stat_2_sub }}</p>
+      </div>
+      <div>
+        <p class="feature-strip__val mono">{{ section.settings.stat_3_title }}</p>
+        <p class="feature-strip__sub">{{ section.settings.stat_3_sub }}</p>
+      </div>
+      <div>
+        <p class="feature-strip__val mono">{{ section.settings.stat_4_title }}</p>
+        <p class="feature-strip__sub">{{ section.settings.stat_4_sub }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carryo Hero Configurator",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Carryo by Warmland · Electric Heating Lunchbox · 5 Colours"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Heat. Eat. Enjoy. Hot home-cooked meals anywhere."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subheading",
+      "default": "Premium textured leatherette electric lunchboxes with removable stainless steel containers and a detachable inline-switch power cord. Plug in at your desk and enjoy steaming homemade food in minutes."
+    },
+    {
+      "type": "product",
+      "id": "large_product",
+      "label": "Carryo Large Product"
+    },
+    {
+      "type": "text",
+      "id": "large_fallback_price",
+      "label": "Large Fallback Price (before product linked)",
+      "default": "₹2,499"
+    },
+    {
+      "type": "product",
+      "id": "small_product",
+      "label": "Carryo Small Product"
+    },
+    {
+      "type": "text",
+      "id": "small_fallback_price",
+      "label": "Small Fallback Price (before product linked)",
+      "default": "₹1,899"
+    },
+    {
+      "type": "text",
+      "id": "shipping_note",
+      "label": "Bottom Shipping Note",
+      "default": "Free delivery over ₹1,500 · COD available"
+    },
+    {
+      "type": "header",
+      "content": "Feature Strip (4 Columns)"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_title",
+      "label": "Feature 1 Title",
+      "default": "2 Sizes"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_sub",
+      "label": "Feature 1 Description",
+      "default": "Large (3 containers) & Small (2 containers)"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_title",
+      "label": "Feature 2 Title",
+      "default": "5 Colours"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_sub",
+      "label": "Feature 2 Description",
+      "default": "Black, Tan, Grey, Light Blue & Light Pink"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_title",
+      "label": "Feature 3 Title",
+      "default": "Plug & Switch"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_sub",
+      "label": "Feature 3 Description",
+      "default": "Detachable inline-switch cord with LED light"
+    },
+    {
+      "type": "text",
+      "id": "stat_4_title",
+      "label": "Feature 4 Title",
+      "default": "Smart Pockets"
+    },
+    {
+      "type": "text",
+      "id": "stat_4_sub",
+      "label": "Feature 4 Description",
+      "default": "Front zip cord pocket & rear quick-slip pocket"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carryo Hero Configurator"
+    }
+  ]
+}
+{% endschema %}

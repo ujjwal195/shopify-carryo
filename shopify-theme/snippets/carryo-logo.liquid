@@ -1,0 +1,39 @@
+{%- comment -%}
+  Renders the Carryo brand logo using Theme Settings upload, bundled logo asset, or SVG fallback.
+{%- endcomment -%}
+<span class="carryo-logo-wrap">
+  {%- if settings.logo != blank -%}
+    <img
+      src="{{ settings.logo | image_url: height: 120 }}"
+      alt="{{ shop.name | escape }}"
+      class="carryo-logo-img"
+      loading="eager"
+      width="160"
+      height="{{ settings.logo_height | default: 40 }}"
+    >
+  {%- else -%}
+    <img
+      src="{{ 'carryo-logo.jpg' | asset_url }}"
+      alt="{{ shop.name | default: 'Carryo' | escape }}"
+      class="carryo-logo-img carryo-logo-blend"
+      loading="eager"
+      width="160"
+      height="{{ settings.logo_height | default: 40 }}"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
+    >
+    <span class="carryo-logo-svg-fallback" style="display:none;" aria-label="{{ shop.name | default: 'Carryo' | escape }}">
+      <svg viewBox="0 0 218 76" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Carryo">
+        <defs>
+          <linearGradient id="carryo-gold-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#FCE39D" />
+            <stop offset="48%" stop-color="#E0B052" />
+            <stop offset="100%" stop-color="#B88428" />
+          </linearGradient>
+        </defs>
+        <path d="M58 26 C67 7, 137 7, 146 26" stroke="url(#carryo-gold-grad)" stroke-width="7.5" stroke-linecap="round" />
+        <path d="M196 12 L198.8 19.6 L206.5 22.5 L198.8 25.4 L196 33 L193.2 25.4 L185.5 22.5 L193.2 19.6 Z" fill="url(#carryo-gold-grad)" />
+        <text x="8" y="60" fill="url(#carryo-gold-grad)" font-family="'Bricolage Grotesque', 'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="50" letter-spacing="-1.5">carryo</text>
+      </svg>
+    </span>
+  {%- endif -%}
+</span>

@@ -1,0 +1,237 @@
+{
+  "sections": {
+    "hero": {
+      "type": "carryo-hero",
+      "settings": {}
+    },
+    "lineup": {
+      "type": "carryo-lineup",
+      "settings": {}
+    },
+    "lookbook": {
+      "type": "carryo-lookbook",
+      "blocks": {
+        "black": {
+          "type": "lookbook_item",
+          "settings": {
+            "colour_key": "black",
+            "title": "Carryo in Black",
+            "subtitle": "Classic embossed obsidian leatherette with gold Carryo emblem"
+          }
+        },
+        "tan": {
+          "type": "lookbook_item",
+          "settings": {
+            "colour_key": "tan",
+            "title": "Carryo in Tan",
+            "subtitle": "Warm saddle-tan textured finish paired with black zip trim"
+          }
+        },
+        "grey": {
+          "type": "lookbook_item",
+          "settings": {
+            "colour_key": "grey",
+            "title": "Carryo in Grey",
+            "subtitle": "Modern architectural slate grey for everyday work commutes"
+          }
+        }
+      },
+      "block_order": ["black", "tan", "grey"],
+      "settings": {}
+    },
+    "how_it_works": {
+      "type": "carryo-how-it-works",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "01. Pack your stainless steel containers",
+            "description": "Fill the 3 containers (Carryo Large) or 2 containers (Carryo Small) with dal, sabzi, rice, or rotis. Place them inside the insulated bag and zip shut—your cord stays stowed in the front zip pocket."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "02. Plug into any wall socket & flip the switch",
+            "description": "20 to 30 minutes before lunch, plug the detachable power cord into the side inlet and turn on the inline switch. The LED indicator lights up as Carryo gently heats your meal with zero added water."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "03. Unzip, eat hot, and wipe clean",
+            "description": "Open to freshly heated home food right at your desk. Wash the stainless steel bowls normally and simply wipe the waterproof interior lining clean with a damp cloth."
+          }
+        }
+      },
+      "block_order": ["step_1", "step_2", "step_3"],
+      "settings": {}
+    },
+    "compare": {
+      "type": "carryo-compare",
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "spec_label": "Stainless Containers",
+            "large_value": "3 × 304 Stainless Steel Containers",
+            "small_value": "2 × 304 Stainless Steel Containers",
+            "is_bold": true
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "spec_label": "Total Meal Capacity",
+            "large_value": "1,350 ml (3 × 450 ml)",
+            "small_value": "900 ml (2 × 450 ml)",
+            "is_mono": true
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "spec_label": "Ideal For",
+            "large_value": "Full Indian & multi-course meals (dal, sabzi, rice & rotis)",
+            "small_value": "Light lunches, rice bowls, pasta, or quick desk meals"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "spec_label": "Heating Time",
+            "large_value": "25–30 min to piping hot",
+            "small_value": "20–25 min to piping hot",
+            "is_mono": true
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "spec_label": "Bag Dimensions",
+            "large_value": "260 × 175 × 125 mm",
+            "small_value": "215 × 155 × 115 mm",
+            "is_mono": true
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "spec_label": "Power Cord",
+            "large_value": "220–240V AC Plug-In with Inline Switch",
+            "small_value": "220–240V AC Plug-In with Inline Switch"
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "spec_label": "Exterior & Pockets",
+            "large_value": "Textured leatherette · Front zip + Back slip pocket",
+            "small_value": "Textured leatherette · Front zip + Back slip pocket"
+          }
+        },
+        "row_8": {
+          "type": "row",
+          "settings": {
+            "spec_label": "Available Colours",
+            "large_value": "Black, Tan, Grey, Light Blue, Light Pink",
+            "small_value": "Black, Tan, Grey, Light Blue, Light Pink"
+          }
+        }
+      },
+      "block_order": ["row_1", "row_2", "row_3", "row_4", "row_5", "row_6", "row_7", "row_8"],
+      "settings": {}
+    },
+    "reviews": {
+      "type": "carryo-reviews",
+      "blocks": {
+        "rev_1": {
+          "type": "review",
+          "settings": {
+            "headline": "Looks like a leather brief, heats like a kitchen stove",
+            "body": "Most colleagues didn’t even realize it was an electric tiffin until I plugged the white cord into my desk socket. Twenty-five minutes later my dal, sabzi, and rice are genuinely steaming hot—and the cord tucks right back into the front zip pocket.",
+            "author": "Rohan Deshmukh",
+            "role": "Senior Product Manager, Razorpay, Bengaluru",
+            "purchase_meta": "Verified purchase · Carryo Large (3 Containers) · Tan",
+            "date": "October 2026"
+          }
+        },
+        "rev_2": {
+          "type": "review",
+          "settings": {
+            "headline": "Zero spills in transit and easy wipe-clean inside",
+            "body": "I carry the Black Carryo Large on 12-hour hospital duties. The textured leatherette looks sharp, the back pocket holds my napkins and cutlery, and the stainless steel containers keep rasam and rice hot without needing a microwave.",
+            "author": "Dr. Meera Krishnan",
+            "role": "Emergency Medicine Resident, Apollo Hospitals, Chennai",
+            "purchase_meta": "Verified purchase · Carryo Large (3 Containers) · Black",
+            "date": "October 2026"
+          }
+        },
+        "rev_3": {
+          "type": "review",
+          "settings": {
+            "headline": "Compact outside, surprisingly spacious inside",
+            "body": "I picked the Small box in Grey for lighter office days. It easily holds two full steel bowls, heats evenly with the simple inline switch, and feels worlds apart from clunky plastic electric lunchboxes.",
+            "author": "Ananya Verma",
+            "role": "Principal Architect, Studio Kora, Mumbai",
+            "purchase_meta": "Verified purchase · Carryo Small (2 Containers) · Grey",
+            "date": "November 2026"
+          }
+        }
+      },
+      "block_order": ["rev_1", "rev_2", "rev_3"],
+      "settings": {}
+    },
+    "faq": {
+      "type": "carryo-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between Carryo Large and Carryo Small?",
+            "answer": "Carryo Large is our full-meal electric lunchbox that includes 3 stainless steel containers (1,350 ml total capacity)—ideal for dal, sabzi, rice, and rotis. Carryo Small is a sleeker, lighter 2-container version (900 ml total) designed for lighter lunches and compact commutes. Both come in all 5 colours with the same plug-in inline-switch heating."
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "How does Carryo heat my food?",
+            "answer": "Simply keep your packed stainless steel containers inside the zipped Carryo bag, connect the detachable power cord to the side port, plug it into a standard wall socket, and flip the inline switch on. The LED light turns on and your meal heats gently to piping-hot perfection in 20–30 minutes—no water required."
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Which colours are available?",
+            "answer": "Both Carryo Large and Carryo Small are available in 5 colours: Black, Tan, Grey, Light Blue, and Light Pink. All finishes feature our textured premium leatherette exterior, matching handles, front zip pocket, back pocket, and metallic gold Carryo emblem."
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I clean the containers and the electric bag?",
+            "answer": "Remove the stainless steel containers and wash them normally by hand or in a dishwasher. For the heated bag interior, unplug the power cord completely and wipe the waterproof thermal lining with a soft damp cloth—never submerge the bag in water."
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "Where do I store the power cord when commuting?",
+            "answer": "The detachable power cord with its inline switch folds neatly into the dedicated front zippered pocket, while the back slip pocket holds napkins, cutlery, or your office ID."
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5"],
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "lineup",
+    "lookbook",
+    "how_it_works",
+    "compare",
+    "reviews",
+    "faq"
+  ]
+}

@@ -1,0 +1,76 @@
+<section class="section-block">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Shopping Bag</p>
+      <h1 class="section-title">{{ 'sections.cart.title' | t }} ({{ cart.item_count }})</h1>
+    </div>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="empty-state">
+        <p class="empty-state__title">{{ 'sections.cart.empty_title' | t }}</p>
+        <p class="empty-state__sub">{{ 'sections.cart.empty_subtitle' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn-gold">{{ 'sections.cart.explore' | t }}</a>
+      </div>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post" novalidate class="cart-page-grid">
+        <div class="cart-page-items">
+          {%- for item in cart.items -%}
+            <div class="cart-page-row">
+              <div class="cart-item__media">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 180 }}" alt="{{ item.title | escape }}" loading="lazy" width="90" height="90">
+                {%- endif -%}
+              </div>
+              <div class="cart-page-row__info">
+                <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="cart-item__variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+                <p class="mono text-gold text-xs">{{ item.final_price | money }}</p>
+              </div>
+              <div class="cart-page-row__qty">
+                <input
+                  type="number"
+                  name="updates[]"
+                  value="{{ item.quantity }}"
+                  min="0"
+                  aria-label="Quantity for {{ item.title | escape }}"
+                  class="cart-qty-input mono"
+                >
+                <a href="{{ item.url_to_remove }}" class="cart-remove-link">{{ 'sections.cart.remove' | t }}</a>
+              </div>
+              <div class="cart-page-row__total mono">{{ item.final_line_price | money }}</div>
+            </div>
+          {%- endfor -%}
+
+          <div class="cart-page-update">
+            <button type="submit" name="update" class="btn btn-surface btn-sm">Update Quantities</button>
+          </div>
+        </div>
+
+        <aside class="cart-page-summary">
+          <h2 class="pdp-subhead">Order Summary</h2>
+          <label for="CartNote" class="form-label">{{ 'sections.cart.order_note' | t }}</label>
+          <textarea id="CartNote" name="note" rows="3" class="form-textarea" placeholder="Add delivery instructions or gift note...">{{ cart.note }}</textarea>
+
+          <div class="cart-summary-line">
+            <span class="text-muted">{{ 'sections.cart.subtotal' | t }}</span>
+            <span class="mono price-gold">{{ cart.total_price | money }}</span>
+          </div>
+          <p class="text-muted text-xs">{{ 'sections.cart.shipping_note' | t }}</p>
+
+          <button type="submit" name="checkout" class="btn btn-gold btn-full btn-lg">
+            {{ 'sections.cart.checkout' | t }}
+          </button>
+        </aside>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "settings": []
+}
+{% endschema %}

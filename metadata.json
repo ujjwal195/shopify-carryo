@@ -1,0 +1,8 @@
+{
+  "name": "Remix Carryo",
+  "description": "Premium electric lunchboxes designed to heat your meals on the go, anytime, anywhere.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

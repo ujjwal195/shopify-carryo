@@ -1,0 +1,194 @@
+{%- assign large_product = section.settings.large_product | default: all_products['carryo-large-electric-lunchbox'] -%}
+{%- assign small_product = section.settings.small_product | default: all_products['carryo-small-electric-lunchbox'] -%}
+
+<section id="compare" class="section-block section-border">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th class="compare-col-spec">Specification</th>
+            <th>
+              <p class="compare-model">{{ large_product.title | default: 'Carryo Large Electric Lunchbox' }}</p>
+              <p class="compare-price mono">
+                {%- if large_product != blank -%}{{ large_product.price | money }}{%- else -%}₹2,499{%- endif -%}
+              </p>
+            </th>
+            <th>
+              <p class="compare-model">{{ small_product.title | default: 'Carryo Small Electric Lunchbox' }}</p>
+              <p class="compare-price mono">
+                {%- if small_product != blank -%}{{ small_product.price | money }}{%- else -%}₹1,899{%- endif -%}
+              </p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <td class="compare-label">{{ block.settings.spec_label }}</td>
+              <td class="{% if block.settings.is_mono %}mono{% endif %} {% if block.settings.is_bold %}text-strong{% endif %}">{{ block.settings.large_value }}</td>
+              <td class="{% if block.settings.is_mono %}mono{% endif %} {% if block.settings.is_bold %}text-strong{% endif %}">{{ block.settings.small_value }}</td>
+            </tr>
+          {%- endfor -%}
+          <tr class="compare-cta-row">
+            <td></td>
+            <td>
+              <a href="{{ large_product.url | default: routes.all_products_collection_url }}" class="btn btn-gold btn-sm">Choose Carryo Large</a>
+            </td>
+            <td>
+              <a href="{{ small_product.url | default: routes.all_products_collection_url }}" class="btn btn-gold btn-sm">Choose Carryo Small</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carryo Size Comparison",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Compare Sizes"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Large Box vs. Small Box — side by side."
+    },
+    {
+      "type": "product",
+      "id": "large_product",
+      "label": "Carryo Large Product"
+    },
+    {
+      "type": "product",
+      "id": "small_product",
+      "label": "Carryo Small Product"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Comparison Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "spec_label",
+          "label": "Specification Label",
+          "default": "Stainless Containers"
+        },
+        {
+          "type": "text",
+          "id": "large_value",
+          "label": "Carryo Large Value",
+          "default": "3 × 304 Stainless Steel Containers"
+        },
+        {
+          "type": "text",
+          "id": "small_value",
+          "label": "Carryo Small Value",
+          "default": "2 × 304 Stainless Steel Containers"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_mono",
+          "label": "Monospace Numeric Font",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "is_bold",
+          "label": "Highlight Bold",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carryo Size Comparison",
+      "blocks": [
+        {
+          "type": "row",
+          "settings": {
+            "spec_label": "Stainless Containers",
+            "large_value": "3 × 304 Stainless Steel Containers",
+            "small_value": "2 × 304 Stainless Steel Containers",
+            "is_bold": true
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "spec_label": "Total Meal Capacity",
+            "large_value": "1,350 ml (3 × 450 ml)",
+            "small_value": "900 ml (2 × 450 ml)",
+            "is_mono": true
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "spec_label": "Ideal For",
+            "large_value": "Full Indian & multi-course meals (dal, sabzi, rice & rotis)",
+            "small_value": "Light lunches, rice bowls, pasta, or quick desk meals"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "spec_label": "Heating Time",
+            "large_value": "25–30 min to piping hot",
+            "small_value": "20–25 min to piping hot",
+            "is_mono": true
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "spec_label": "Bag Dimensions",
+            "large_value": "260 × 175 × 125 mm",
+            "small_value": "215 × 155 × 115 mm",
+            "is_mono": true
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "spec_label": "Power Cord",
+            "large_value": "220–240V AC Plug-In with Inline Switch",
+            "small_value": "220–240V AC Plug-In with Inline Switch"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "spec_label": "Exterior & Pockets",
+            "large_value": "Textured leatherette · Front zip + Back slip pocket",
+            "small_value": "Textured leatherette · Front zip + Back slip pocket"
+          }
+        },
+        {
+          "type": "row",
+          "settings": {
+            "spec_label": "Available Colours",
+            "large_value": "Black, Tan, Grey, Light Blue, Light Pink",
+            "small_value": "Black, Tan, Grey, Light Blue, Light Pink"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

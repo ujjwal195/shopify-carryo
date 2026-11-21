@@ -1,0 +1,16 @@
+{
+  "current": {
+    "logo_height": 40,
+    "color_background": "#080809",
+    "color_surface": "#111114",
+    "color_border": "#26262C",
+    "color_accent": "#E0B052",
+    "color_accent_hover": "#ECC46E",
+    "color_text": "#F5F3EE",
+    "color_muted": "#A1A1AA",
+    "enable_cart_drawer": true,
+    "free_shipping_threshold": 1500,
+    "promo_hint_text": "Use code CARRYO10 at checkout for 10% off",
+    "support_contact": "Support: care@carryo.store · Mon–Sat, 9 AM – 7 PM IST"
+  }
+}

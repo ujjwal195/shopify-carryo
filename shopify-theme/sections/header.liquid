@@ -1,0 +1,85 @@
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a href="{{ routes.root_url }}" class="header-logo" aria-label="{{ shop.name | default: 'Carryo' | escape }}">
+      {% render 'carryo-logo' %}
+    </a>
+
+    <nav class="header-nav" aria-label="Primary Navigation">
+      {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}" class="nav-link{% if link.active %} is-active{% endif %}">{{ link.title }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="{{ routes.root_url }}#shop" class="nav-link">Shop</a>
+        <a href="{{ routes.root_url }}#how-it-works" class="nav-link">How It Works</a>
+        <a href="{{ routes.root_url }}#compare" class="nav-link">Compare</a>
+        <a href="/pages/track-order" class="nav-link">Track Order</a>
+      {%- endif -%}
+    </nav>
+
+    <div class="header-actions">
+      {%- if settings.enable_cart_drawer -%}
+        <button
+          type="button"
+          class="btn btn-gold btn-bag"
+          data-cart-open
+          aria-label="Open shopping bag with {{ cart.item_count }} items"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+            <path d="M3 6h18" />
+            <path d="M16 10a4 4 0 0 1-8 0" />
+          </svg>
+          <span>{{ 'sections.header.bag' | t }}</span>
+          <span class="mono" data-cart-count-paren>({{ cart.item_count }})</span>
+        </button>
+      {%- else -%}
+        <a href="{{ routes.cart_url }}" class="btn btn-gold btn-bag">
+          <span>{{ 'sections.header.bag' | t }}</span>
+          <span class="mono">({{ cart.item_count }})</span>
+        </a>
+      {%- endif -%}
+
+      <button
+        type="button"
+        class="mobile-menu-toggle"
+        data-mobile-menu-toggle
+        aria-label="{{ 'general.accessibility.menu' | t }}"
+        aria-expanded="false"
+      >
+        <svg class="icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" data-mobile-nav hidden>
+    <div class="container mobile-nav__inner">
+      {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}" class="mobile-nav__link" data-mobile-nav-link>{{ link.title }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="{{ routes.root_url }}#shop" class="mobile-nav__link" data-mobile-nav-link>Shop</a>
+        <a href="{{ routes.root_url }}#how-it-works" class="mobile-nav__link" data-mobile-nav-link>How It Works</a>
+        <a href="{{ routes.root_url }}#compare" class="mobile-nav__link" data-mobile-nav-link>Compare</a>
+        <a href="/pages/track-order" class="mobile-nav__link" data-mobile-nav-link>Track Order</a>
+      {%- endif -%}
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

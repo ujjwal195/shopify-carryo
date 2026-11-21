@@ -1,0 +1,118 @@
+{%- comment -%}
+  Slide-out Shopify Ajax Bag Drawer matching Carryo Obsidian aesthetic.
+{%- endcomment -%}
+<div id="CarryoCartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="{{ 'sections.cart.title' | t }}" hidden>
+  <div class="cart-drawer__backdrop" data-cart-close></div>
+
+  <div class="cart-drawer__panel">
+    <div class="cart-drawer__header">
+      <div class="cart-drawer__title-group">
+        <svg class="icon-svg icon-gold" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+          <path d="M3 6h18" />
+          <path d="M16 10a4 4 0 0 1-8 0" />
+        </svg>
+        <h2 class="cart-drawer__title">
+          {{ 'sections.cart.title' | t }}
+          <span class="cart-drawer__count mono" data-cart-count-paren>({{ cart.item_count }})</span>
+        </h2>
+      </div>
+      <button type="button" class="icon-btn" data-cart-close aria-label="{{ 'general.accessibility.close' | t }}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="cart-drawer__shipping" data-cart-shipping-bar {% if cart.item_count == 0 %}hidden{% endif %}>
+      <p class="cart-drawer__shipping-text" data-cart-shipping-text></p>
+      <div class="progress-track">
+        <div class="progress-fill" data-cart-shipping-fill style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <div class="cart-drawer__body" data-cart-items-container>
+      {%- if cart.item_count == 0 -%}
+        <div class="cart-drawer__empty">
+          <div class="cart-drawer__empty-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+              <path d="M3 6h18" />
+              <path d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
+          </div>
+          <p class="cart-drawer__empty-title">{{ 'sections.cart.empty_title' | t }}</p>
+          <p class="cart-drawer__empty-sub">{{ 'sections.cart.empty_subtitle' | t }}</p>
+          <button type="button" class="btn btn-gold" data-cart-close>
+            {{ 'sections.cart.explore' | t }}
+          </button>
+        </div>
+      {%- else -%}
+        <ul class="cart-drawer__list">
+          {%- for item in cart.items -%}
+            <li class="cart-item" data-cart-key="{{ item.key }}">
+              <div class="cart-item__media">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.title | escape }}" loading="lazy" width="80" height="80">
+                {%- else -%}
+                  <img src="{{ 'carryo-black-front.jpg' | asset_url }}" alt="{{ item.title | escape }}" loading="lazy" width="80" height="80">
+                {%- endif -%}
+              </div>
+              <div class="cart-item__info">
+                <div class="cart-item__top">
+                  <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+                  <button type="button" class="cart-item__remove" data-cart-remove="{{ item.key }}" aria-label="{{ 'sections.cart.remove' | t }} {{ item.title | escape }}">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                    </svg>
+                  </button>
+                </div>
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="cart-item__variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+                <div class="cart-item__bottom">
+                  <div class="qty-control qty-control--sm">
+                    <button type="button" data-cart-qty="{{ item.key }}" data-delta="-1" aria-label="Decrease quantity">&minus;</button>
+                    <span class="mono">{{ item.quantity }}</span>
+                    <button type="button" data-cart-qty="{{ item.key }}" data-delta="1" aria-label="Increase quantity">+</button>
+                  </div>
+                  <span class="cart-item__price mono">{{ item.final_line_price | money }}</span>
+                </div>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    <div class="cart-drawer__footer" data-cart-footer {% if cart.item_count == 0 %}hidden{% endif %}>
+      {%- if settings.promo_hint_text != blank -%}
+        <div class="cart-drawer__promo-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+            <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+          </svg>
+          <span>{{ settings.promo_hint_text }}</span>
+        </div>
+      {%- endif -%}
+
+      <div class="cart-drawer__totals">
+        <div class="cart-drawer__row">
+          <span class="text-muted">{{ 'sections.cart.subtotal' | t }}</span>
+          <span class="mono cart-drawer__subtotal" data-cart-subtotal>{{ cart.total_price | money }}</span>
+        </div>
+        <p class="cart-drawer__note-caption">{{ 'sections.cart.shipping_note' | t }}</p>
+      </div>
+
+      <form action="{{ routes.cart_url }}" method="post">
+        <button type="submit" name="checkout" class="btn btn-gold btn-full">
+          <span>{{ 'sections.cart.checkout' | t }}</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

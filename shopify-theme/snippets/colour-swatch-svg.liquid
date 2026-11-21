@@ -1,0 +1,70 @@
+{%- comment -%}
+  Studio colour preview SVG for Light Blue & Light Pink shades (used when no custom photography is uploaded yet).
+  Accepts: colour ('light-blue' | 'light-pink'), size ('large' | 'small')
+{%- endcomment -%}
+{%- assign is_pink = false -%}
+{%- if colour == 'light-pink' -%}
+  {%- assign is_pink = true -%}
+{%- endif -%}
+{%- assign is_small = false -%}
+{%- if size == 'small' -%}
+  {%- assign is_small = true -%}
+{%- endif -%}
+
+<div class="studio-svg-stage" role="img" aria-label="Carryo {% if is_small %}Small{% else %}Large{% endif %} in {% if is_pink %}Light Pink{% else %}Light Blue{% endif %}">
+  <svg viewBox="0 0 640 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="bag-{{ colour }}-{{ size }}" x1="0" y1="0" x2="0" y2="1">
+        {%- if is_pink -%}
+          <stop offset="0%" stop-color="#F3CCD6" />
+          <stop offset="55%" stop-color="#E2B0BE" />
+          <stop offset="100%" stop-color="#C48D9D" />
+        {%- else -%}
+          <stop offset="0%" stop-color="#AED3EB" />
+          <stop offset="55%" stop-color="#8CB9D7" />
+          <stop offset="100%" stop-color="#6C98B7" />
+        {%- endif -%}
+      </linearGradient>
+      <linearGradient id="gold-{{ colour }}-{{ size }}" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FCE197" />
+        <stop offset="50%" stop-color="#E0B052" />
+        <stop offset="100%" stop-color="#B68023" />
+      </linearGradient>
+      <linearGradient id="steel-{{ colour }}-{{ size }}" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#CFD6DD" />
+        <stop offset="32%" stop-color="#F5F7F9" />
+        <stop offset="68%" stop-color="#B0B9C3" />
+        <stop offset="100%" stop-color="#DCE2E8" />
+      </linearGradient>
+    </defs>
+    <rect x="0" y="346" width="640" height="134" fill="#141418" />
+    <line x1="0" y1="346" x2="640" y2="346" stroke="#282830" stroke-width="1" />
+    <g {% if is_small %}transform="translate(38, 22) scale(0.88)"{% endif %}>
+      <path d="M196 164 C196 106, 246 106, 246 164" stroke="url(#bag-{{ colour }}-{{ size }})" stroke-width="26" stroke-linecap="round" />
+      <path d="M394 164 C394 106, 444 106, 444 164" stroke="url(#bag-{{ colour }}-{{ size }})" stroke-width="26" stroke-linecap="round" />
+      <rect x="130" y="148" width="380" height="208" rx="28" fill="url(#bag-{{ colour }}-{{ size }})" stroke="{% if is_pink %}#AD7686{% else %}#5982A0{% endif %}" stroke-width="2" />
+      <rect x="134" y="218" width="372" height="12" rx="4" fill="#18191D" />
+      <rect x="466" y="220" width="12" height="24" rx="5" fill="#2A2C33" stroke="#525661" />
+      <rect x="376" y="164" width="102" height="44" rx="7" fill="#141518" stroke="url(#gold-{{ colour }}-{{ size }})" stroke-width="1.8" />
+      <path d="M407 177 C412 169, 440 169, 445 177" stroke="url(#gold-{{ colour }}-{{ size }})" stroke-width="2.4" stroke-linecap="round" />
+      <text x="426" y="192" text-anchor="middle" fill="url(#gold-{{ colour }}-{{ size }})" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="18">carryo</text>
+      <text x="427" y="202" text-anchor="middle" fill="#C9A55A" font-family="'Plus Jakarta Sans', sans-serif" font-size="5.5" letter-spacing="0.8">by Warmland</text>
+    </g>
+    {%- if is_small -%}
+      <rect x="212" y="324" width="98" height="52" rx="10" fill="url(#steel-{{ colour }}-{{ size }})" stroke="#97A1AC" stroke-width="1.2" />
+      <ellipse cx="261" cy="326" rx="49" ry="9" fill="#E8EDF1" stroke="#AEB7C0" />
+      <rect x="330" y="324" width="98" height="52" rx="10" fill="url(#steel-{{ colour }}-{{ size }})" stroke="#97A1AC" stroke-width="1.2" />
+      <ellipse cx="379" cy="326" rx="49" ry="9" fill="#E8EDF1" stroke="#AEB7C0" />
+    {%- else -%}
+      <rect x="156" y="326" width="94" height="50" rx="10" fill="url(#steel-{{ colour }}-{{ size }})" stroke="#97A1AC" stroke-width="1.2" />
+      <ellipse cx="203" cy="328" rx="47" ry="8.5" fill="#E8EDF1" stroke="#AEB7C0" />
+      <rect x="273" y="326" width="94" height="50" rx="10" fill="url(#steel-{{ colour }}-{{ size }})" stroke="#97A1AC" stroke-width="1.2" />
+      <ellipse cx="320" cy="328" rx="47" ry="8.5" fill="#E8EDF1" stroke="#AEB7C0" />
+      <rect x="390" y="326" width="94" height="50" rx="10" fill="url(#steel-{{ colour }}-{{ size }})" stroke="#97A1AC" stroke-width="1.2" />
+      <ellipse cx="437" cy="328" rx="47" ry="8.5" fill="#E8EDF1" stroke="#AEB7C0" />
+    {%- endif -%}
+    <text x="320" y="428" text-anchor="middle" fill="#A1A1AA" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="500">
+      {% if is_pink %}Light Pink{% else %}Light Blue{% endif %} &middot; {% if is_small %}Small (2 Containers){% else %}Large (3 Containers){% endif %} &middot; Colour Preview
+    </text>
+  </svg>
+</div>

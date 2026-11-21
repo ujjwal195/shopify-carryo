@@ -1,0 +1,49 @@
+<section class="section-block">
+  <div class="container container--narrow">
+    <p class="eyebrow">Order Status</p>
+    <h1 class="section-title">{{ page.title | default: 'Track Your Carryo Order' }}</h1>
+    <p class="section-sub">{{ section.settings.subtitle }}</p>
+
+    <div class="track-card">
+      <form class="track-form" data-track-form>
+        <div class="form-field">
+          <label for="TrackOrderNumber" class="form-label">Order Number</label>
+          <input id="TrackOrderNumber" type="text" required placeholder="e.g. #1042 or CYO-2026-8412" class="form-input mono">
+        </div>
+        <div class="form-field">
+          <label for="TrackOrderEmail" class="form-label">Email Address</label>
+          <input id="TrackOrderEmail" type="email" required placeholder="you@example.com" class="form-input">
+        </div>
+        <button type="submit" class="btn btn-gold btn-lg">Check Shipment Status</button>
+      </form>
+
+      <div class="track-result" data-track-result hidden>
+        <p class="text-gold text-xs mono">TRACKING LOOKUP</p>
+        <p class="track-result__msg" data-track-msg></p>
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{{ routes.account_login_url }}" class="btn btn-surface btn-sm">Sign In to View Full Order History</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if page.content != blank -%}
+      <div class="page-rte" style="margin-top: 2rem;">
+        {{ page.content }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Track Order Page",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Enter your Shopify order number and email address to view live dispatch status, or sign in to your customer account."
+    }
+  ]
+}
+{% endschema %}

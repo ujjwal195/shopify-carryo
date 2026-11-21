@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+
+    {{ content_for_header }}
+
+    <style>
+      :root {
+        --carryo-bg: {{ settings.color_background | default: '#080809' }};
+        --carryo-surface: {{ settings.color_surface | default: '#111114' }};
+        --carryo-elevated: #18181C;
+        --carryo-border: {{ settings.color_border | default: '#26262C' }};
+        --carryo-border-soft: #222228;
+        --carryo-gold: {{ settings.color_accent | default: '#E0B052' }};
+        --carryo-gold-hover: {{ settings.color_accent_hover | default: '#ECC46E' }};
+        --carryo-ivory: {{ settings.color_text | default: '#F5F3EE' }};
+        --carryo-muted: {{ settings.color_muted | default: '#A1A1AA' }};
+        --carryo-dim: #71717A;
+        --carryo-logo-height: {{ settings.logo_height | default: 40 }}px;
+        --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+        --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+        --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+      }
+    </style>
+
+    {{ 'carryo-theme.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      window.CarryoConfig = {
+        moneyFormat: {{ shop.money_format | json }},
+        currencySymbol: {{ cart.currency.symbol | default: '₹' | json }},
+        freeShippingThreshold: {{ settings.free_shipping_threshold | default: 1500 | times: 100 }},
+        enableCartDrawer: {{ settings.enable_cart_drawer | default: true | json }},
+        routes: {
+          cartUrl: {{ routes.cart_url | json }},
+          cartAddUrl: {{ routes.cart_add_url | json }},
+          cartChangeUrl: {{ routes.cart_change_url | json }},
+          cartUpdateUrl: {{ routes.cart_update_url | json }}
+        },
+        assets: {
+          black: {
+            heroAction: {{ 'carryo-black-action.jpg' | asset_url | json }},
+            front: {{ 'carryo-black-front.jpg' | asset_url | json }},
+            kitDesk: {{ 'carryo-black-kit.jpg' | asset_url | json }},
+            lifestyle: {{ 'carryo-black-lifestyle.jpg' | asset_url | json }},
+            interior: {{ 'carryo-black-interior.jpg' | asset_url | json }},
+            back: {{ 'carryo-black-back.jpg' | asset_url | json }}
+          },
+          tan: {
+            heroAction: {{ 'carryo-tan-action.jpg' | asset_url | json }},
+            front: {{ 'carryo-tan-front.jpg' | asset_url | json }},
+            kitDesk: {{ 'carryo-tan-kit.jpg' | asset_url | json }},
+            lifestyle: {{ 'carryo-tan-lifestyle.jpg' | asset_url | json }},
+            interior: {{ 'carryo-tan-interior.jpg' | asset_url | json }},
+            back: {{ 'carryo-tan-back.jpg' | asset_url | json }}
+          },
+          grey: {
+            heroAction: {{ 'carryo-grey-action.jpg' | asset_url | json }},
+            front: {{ 'carryo-grey-front.jpg' | asset_url | json }},
+            kitDesk: {{ 'carryo-grey-kit.jpg' | asset_url | json }},
+            lifestyle: {{ 'carryo-grey-lifestyle.jpg' | asset_url | json }},
+            interior: {{ 'carryo-grey-interior.jpg' | asset_url | json }},
+            back: {{ 'carryo-grey-back.jpg' | asset_url | json }}
+          }
+        }
+      };
+    </script>
+  </head>
+
+  <body class="carryo-body template-{{ template.name }}">
+    <a class="skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" class="carryo-main" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {%- if settings.enable_cart_drawer -%}
+      {% render 'cart-drawer' %}
+    {%- endif -%}
+
+    <script src="{{ 'carryo-theme.js' | asset_url }}" defer></script>
+  </body>
+</html>

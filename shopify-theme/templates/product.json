@@ -1,0 +1,52 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "carryo-reviews",
+      "blocks": {
+        "rev_1": {
+          "type": "review",
+          "settings": {
+            "headline": "Looks like a leather brief, heats like a kitchen stove",
+            "body": "Most colleagues didn’t even realize it was an electric tiffin until I plugged the white cord into my desk socket. Twenty-five minutes later my dal, sabzi, and rice are genuinely steaming hot.",
+            "author": "Rohan Deshmukh",
+            "role": "Senior Product Manager, Razorpay, Bengaluru",
+            "purchase_meta": "Verified purchase · Carryo Large · Tan",
+            "date": "October 2026"
+          }
+        },
+        "rev_2": {
+          "type": "review",
+          "settings": {
+            "headline": "Zero spills in transit and easy wipe-clean inside",
+            "body": "I carry the Black Carryo Large on 12-hour hospital duties. The textured leatherette looks sharp and the stainless steel containers keep rasam and rice hot without needing a microwave.",
+            "author": "Dr. Meera Krishnan",
+            "role": "Emergency Medicine Resident, Apollo Hospitals, Chennai",
+            "purchase_meta": "Verified purchase · Carryo Large · Black",
+            "date": "October 2026"
+          }
+        },
+        "rev_3": {
+          "type": "review",
+          "settings": {
+            "headline": "Compact outside, surprisingly spacious inside",
+            "body": "I picked the Small box in Grey for lighter office days. It easily holds two full steel bowls and feels worlds apart from clunky plastic electric lunchboxes.",
+            "author": "Ananya Verma",
+            "role": "Principal Architect, Studio Kora, Mumbai",
+            "purchase_meta": "Verified purchase · Carryo Small · Grey",
+            "date": "November 2026"
+          }
+        }
+      },
+      "block_order": ["rev_1", "rev_2", "rev_3"],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "reviews"
+  ]
+}

@@ -1,0 +1,131 @@
+<footer class="site-footer">
+  <div class="container footer-wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="{{ routes.root_url }}" aria-label="{{ shop.name | default: 'Carryo' | escape }}">
+          {% render 'carryo-logo' %}
+        </a>
+        <p class="footer-about">{{ section.settings.brand_description }}</p>
+        {%- if settings.support_contact != blank -%}
+          <p class="footer-support">{{ settings.support_contact }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-heading">{{ section.settings.col_1_heading }}</h3>
+        <ul class="footer-links">
+          {%- if section.settings.col_1_menu != blank and section.settings.col_1_menu.links.size > 0 -%}
+            {%- for link in section.settings.col_1_menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="{{ routes.all_products_collection_url }}">Carryo Large (3 Bowls)</a></li>
+            <li><a href="{{ routes.all_products_collection_url }}">Carryo Small (2 Bowls)</a></li>
+            <li><a href="{{ routes.root_url }}#shop">Shop Grey Edition</a></li>
+            <li><a href="{{ routes.root_url }}#shop">Light Blue &amp; Light Pink</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-heading">{{ section.settings.col_2_heading }}</h3>
+        <ul class="footer-links">
+          {%- if section.settings.col_2_menu != blank and section.settings.col_2_menu.links.size > 0 -%}
+            {%- for link in section.settings.col_2_menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="/pages/track-order">Track Your Order</a></li>
+            <li><a href="{{ routes.root_url }}#how-it-works">How It Works</a></li>
+            <li><a href="{{ routes.root_url }}#compare">Large vs. Small</a></li>
+            <li><a href="{{ routes.root_url }}#faq">1-Year Warranty</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <div class="footer-region">
+        <h3 class="footer-heading">{{ section.settings.region_heading }}</h3>
+        {%- if localization.available_countries.size > 1 -%}
+          {%- form 'localization', id: 'CarryoFooterCountryForm', class: 'localization-form' -%}
+            <label for="CarryoCountrySelect" class="sr-only">Country/region</label>
+            <select
+              id="CarryoCountrySelect"
+              name="country_code"
+              class="footer-select"
+              onchange="this.form.submit()"
+            >
+              {%- for country in localization.available_countries -%}
+                <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
+                  {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                </option>
+              {%- endfor -%}
+            </select>
+          {%- endform -%}
+        {%- else -%}
+          <div class="region-badge">
+            <span class="region-badge__active">{{ localization.country.name | default: 'India' }} ({{ cart.currency.iso_code | default: 'INR' }} {{ cart.currency.symbol | default: '₹' }})</span>
+          </div>
+        {%- endif -%}
+        <p class="footer-payments">{{ section.settings.payment_note }}</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | default: 'Carryo by Warmland' }}. All rights reserved.</p>
+      <div class="footer-badges">
+        <span>2 Sizes &middot; 5 Colours</span>
+        <span>Food-Grade Stainless Steel</span>
+        <span>1-Year Replacement Warranty</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Brand Description",
+      "default": "Carryo by Warmland crafts premium leatherette electric heating lunchboxes with stainless steel containers—so hot, home-cooked meals travel effortlessly wherever you work."
+    },
+    {
+      "type": "text",
+      "id": "col_1_heading",
+      "label": "Column 1 Heading",
+      "default": "Products"
+    },
+    {
+      "type": "link_list",
+      "id": "col_1_menu",
+      "label": "Column 1 Menu",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "col_2_heading",
+      "label": "Column 2 Heading",
+      "default": "Customer Care"
+    },
+    {
+      "type": "link_list",
+      "id": "col_2_menu",
+      "label": "Column 2 Menu"
+    },
+    {
+      "type": "text",
+      "id": "region_heading",
+      "label": "Region Heading",
+      "default": "Store Region"
+    },
+    {
+      "type": "textarea",
+      "id": "payment_note",
+      "label": "Accepted Payment Methods Note",
+      "default": "Accepted at checkout: Visa, Mastercard, RuPay, UPI, Apple Pay, Google Pay & Cash on Delivery."
+    }
+  ]
+}
+{% endschema %}

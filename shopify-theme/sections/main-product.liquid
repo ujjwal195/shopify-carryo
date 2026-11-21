@@ -1,0 +1,331 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign is_small_product = false -%}
+{%- assign title_down = product.title | downcase -%}
+{%- if title_down contains 'small' -%}
+  {%- assign is_small_product = true -%}
+{%- endif -%}
+
+<section class="pdp-section" data-carryo-pdp>
+  <script type="application/json" data-pdp-variants>
+    [
+      {%- for v in product.variants -%}
+        {
+          "id": {{ v.id }},
+          "title": {{ v.title | json }},
+          "option1": {{ v.option1 | json }},
+          "option2": {{ v.option2 | json }},
+          "option3": {{ v.option3 | json }},
+          "available": {{ v.available | json }},
+          "price": {{ v.price }},
+          "priceFormatted": {{ v.price | money | json }},
+          "compareAtPrice": {{ v.compare_at_price | default: 0 }},
+          "compareAtFormatted": {{ v.compare_at_price | money | json }},
+          "image": {% if v.featured_image %}{{ v.featured_image | image_url: width: 1200 | json }}{% else %}null{% endif %}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  </script>
+
+  <div class="container">
+    <a href="{{ routes.all_products_collection_url }}" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m12 19-7-7 7-7" /><path d="M19 12H5" />
+      </svg>
+      <span>{{ 'sections.product.back_to_collection' | t }}</span>
+    </a>
+
+    <div class="pdp-grid">
+      <!-- Left: 6-Photo Gallery + Highlights + Specs -->
+      <div class="pdp-left">
+        <div class="pdp-stage">
+          {%- if current_variant.featured_image -%}
+            <img
+              src="{{ current_variant.featured_image | image_url: width: 1200 }}"
+              alt="{{ current_variant.featured_image.alt | default: product.title | escape }}"
+              data-pdp-main-img
+              loading="eager"
+              width="960"
+              height="720"
+            >
+          {%- elsif product.featured_image -%}
+            <img
+              src="{{ product.featured_image | image_url: width: 1200 }}"
+              alt="{{ product.featured_image.alt | default: product.title | escape }}"
+              data-pdp-main-img
+              loading="eager"
+              width="960"
+              height="720"
+            >
+          {%- else -%}
+            <img
+              src="{{ 'carryo-black-action.jpg' | asset_url }}"
+              alt="{{ product.title | escape }}"
+              data-pdp-main-img
+              loading="eager"
+              width="960"
+              height="720"
+            >
+          {%- endif -%}
+        </div>
+
+        {%- if product.images.size > 1 -%}
+          <div class="pdp-thumbs">
+            {%- for image in product.images -%}
+              <button
+                type="button"
+                class="pdp-thumb{% if forloop.first %} is-active{% endif %}"
+                data-pdp-thumb
+                data-src="{{ image | image_url: width: 1200 }}"
+                aria-label="View photo {{ forloop.index }}"
+              >
+                <img src="{{ image | image_url: width: 260 }}" alt="{{ image.alt | default: product.title | escape }}" loading="lazy" width="160" height="120">
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <!-- Built-in 6-Angle Carryo Studio Gallery when product has 0-1 uploaded photos -->
+          <div class="pdp-thumbs" data-pdp-builtin-thumbs>
+            <button type="button" class="pdp-thumb is-active" data-pdp-thumb data-src="{{ 'carryo-black-action.jpg' | asset_url }}" data-angle-key="heroAction">
+              <img src="{{ 'carryo-black-action.jpg' | asset_url }}" alt="Heat. Eat. Enjoy." loading="lazy" width="160" height="120">
+              <span>Heat. Eat.</span>
+            </button>
+            <button type="button" class="pdp-thumb" data-pdp-thumb data-src="{{ 'carryo-black-front.jpg' | asset_url }}" data-angle-key="front">
+              <img src="{{ 'carryo-black-front.jpg' | asset_url }}" alt="Front View" loading="lazy" width="160" height="120">
+              <span>Front</span>
+            </button>
+            <button type="button" class="pdp-thumb" data-pdp-thumb data-src="{{ 'carryo-black-kit.jpg' | asset_url }}" data-angle-key="kitDesk">
+              <img src="{{ 'carryo-black-kit.jpg' | asset_url }}" alt="Complete Set" loading="lazy" width="160" height="120">
+              <span>Full Set</span>
+            </button>
+            <button type="button" class="pdp-thumb" data-pdp-thumb data-src="{{ 'carryo-black-lifestyle.jpg' | asset_url }}" data-angle-key="lifestyle">
+              <img src="{{ 'carryo-black-lifestyle.jpg' | asset_url }}" alt="Carry Look" loading="lazy" width="160" height="120">
+              <span>Carry Look</span>
+            </button>
+            <button type="button" class="pdp-thumb" data-pdp-thumb data-src="{{ 'carryo-black-interior.jpg' | asset_url }}" data-angle-key="interior">
+              <img src="{{ 'carryo-black-interior.jpg' | asset_url }}" alt="Spacious Interior" loading="lazy" width="160" height="120">
+              <span>Interior</span>
+            </button>
+            <button type="button" class="pdp-thumb" data-pdp-thumb data-src="{{ 'carryo-black-back.jpg' | asset_url }}" data-angle-key="back">
+              <img src="{{ 'carryo-black-back.jpg' | asset_url }}" alt="Back Pocket" loading="lazy" width="160" height="120">
+              <span>Back Pocket</span>
+            </button>
+          </div>
+        {%- endif -%}
+
+        <!-- Description & Highlights -->
+        <div class="pdp-section-block">
+          <h2 class="pdp-subhead">Compact outside, spacious inside</h2>
+          <div class="pdp-richtext">
+            {%- if product.description != blank -%}
+              {{ product.description }}
+            {%- else -%}
+              <p>Carryo by Warmland replaces bulky plastic tiffins with a tailored, structured leatherette electric lunch bag that looks right at home beside your laptop. Plug into any office socket 25 minutes before lunch for freshly steamed, home-cooked warmth.</p>
+            {%- endif -%}
+          </div>
+
+          <ul class="pdp-highlights">
+            <li><span class="check-dot" aria-hidden="true">&#10003;</span><span>Food-grade 304 stainless steel containers with secure lids</span></li>
+            <li><span class="check-dot" aria-hidden="true">&#10003;</span><span>Detachable plug-in heating cord with built-in inline power switch &amp; LED indicator</span></li>
+            <li><span class="check-dot" aria-hidden="true">&#10003;</span><span>Premium textured waterproof leatherette exterior with metallic Carryo emblem</span></li>
+            <li><span class="check-dot" aria-hidden="true">&#10003;</span><span>Front zippered cable &amp; cutlery pocket plus convenient rear slip pocket</span></li>
+            <li><span class="check-dot" aria-hidden="true">&#10003;</span><span>Wipe-clean waterproof thermal lining keeps heat locked in</span></li>
+          </ul>
+        </div>
+
+        <!-- Specifications -->
+        <div class="pdp-section-block">
+          <h3 class="pdp-subhead">Product Specifications</h3>
+          <dl class="spec-list">
+            <div class="spec-row">
+              <dt>Box Size</dt>
+              <dd class="mono">{% if is_small_product %}Small (2-Container Capacity){% else %}Large (3-Container Capacity){% endif %}</dd>
+            </div>
+            <div class="spec-row">
+              <dt>Included Containers</dt>
+              <dd class="mono">{% if is_small_product %}2 &times; 450 ml Food-Grade Stainless Steel{% else %}3 &times; 450 ml Food-Grade Stainless Steel{% endif %}</dd>
+            </div>
+            <div class="spec-row">
+              <dt>Total Capacity</dt>
+              <dd class="mono">{% if is_small_product %}900 ml{% else %}1,350 ml{% endif %}</dd>
+            </div>
+            <div class="spec-row">
+              <dt>Exterior Material</dt>
+              <dd class="mono">Premium Textured Waterproof Leatherette</dd>
+            </div>
+            <div class="spec-row">
+              <dt>Heating Mechanism</dt>
+              <dd class="mono">Built-in Constant-Temp Electric Base</dd>
+            </div>
+            <div class="spec-row">
+              <dt>Power Control</dt>
+              <dd class="mono">Detachable AC Cord with Inline Switch &amp; LED</dd>
+            </div>
+            <div class="spec-row">
+              <dt>Heating Time</dt>
+              <dd class="mono">{% if is_small_product %}20–25 minutes{% else %}25–30 minutes{% endif %}</dd>
+            </div>
+            <div class="spec-row">
+              <dt>Dimensions</dt>
+              <dd class="mono">{% if is_small_product %}215 &times; 155 &times; 115 mm{% else %}260 &times; 175 &times; 125 mm{% endif %}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- What's in the Box -->
+        <div class="pdp-section-block">
+          <h3 class="pdp-subhead">What&rsquo;s included</h3>
+          <ul class="inbox-grid">
+            <li><span class="gold-bullet"></span><span>Carryo Electric Heating Bag (Selected Colour)</span></li>
+            <li><span class="gold-bullet"></span><span>{% if is_small_product %}2{% else %}3{% endif %} &times; Stainless Steel Containers with Lids</span></li>
+            <li><span class="gold-bullet"></span><span>Detachable Inline-Switch Power Cord (AC)</span></li>
+            <li><span class="gold-bullet"></span><span>Care Guide &amp; 1-Year Replacement Warranty Card</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right: Sticky Contiguous Purchase Module -->
+      <aside class="pdp-buybox">
+        <div class="pdp-meta-line">
+          <span class="text-gold">{% if is_small_product %}Small Box &middot; 2 Containers{% else %}Large Box &middot; 3 Containers{% endif %}</span>
+          <span aria-hidden="true">&middot;</span>
+          <span>{% if is_small_product %}900 ml{% else %}1,350 ml{% endif %}</span>
+          <span aria-hidden="true">&middot;</span>
+          <span class="pdp-rating">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+            <span class="mono">4.9</span>
+          </span>
+        </div>
+
+        <h1 class="pdp-title">{{ product.title }}</h1>
+
+        <div class="pdp-price-bar">
+          <span class="pdp-price mono" data-pdp-price>{{ current_variant.price | money }}</span>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span class="pdp-compare mono" data-pdp-compare>{{ current_variant.compare_at_price | money }}</span>
+          {%- endif -%}
+          <span class="text-muted text-xs">Incl. all taxes &middot; {% if current_variant.available %}In Stock{% else %}Sold Out{% endif %}</span>
+        </div>
+
+        {%- form 'product', product, id: 'CarryoProductForm', class: 'pdp-form', data-pdp-form: '' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-pdp-variant-id>
+
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              {%- assign opt_down = option.name | downcase -%}
+              <div class="pdp-option-group" data-option-index="{{ forloop.index0 }}">
+                <div class="label-row">
+                  <span class="label-strong">{{ option.name }}</span>
+                  <span class="text-gold text-xs" data-option-selected-label>{{ option.selected_value }}</span>
+                </div>
+
+                {%- if opt_down contains 'color' or opt_down contains 'colour' -%}
+                  <div class="swatch-row swatch-row--lg">
+                    {%- for value in option.values -%}
+                      {%- assign val_down = value | downcase -%}
+                      {%- assign swatch_hex = '#17181B' -%}
+                      {%- if val_down contains 'tan' -%}
+                        {%- assign swatch_hex = '#A54D22' -%}
+                      {%- elsif val_down contains 'grey' or val_down contains 'gray' -%}
+                        {%- assign swatch_hex = '#767B82' -%}
+                      {%- elsif val_down contains 'blue' -%}
+                        {%- assign swatch_hex = '#93BEDB' -%}
+                      {%- elsif val_down contains 'pink' -%}
+                        {%- assign swatch_hex = '#E6B9C5' -%}
+                      {%- endif -%}
+                      <button
+                        type="button"
+                        class="swatch-btn{% if option.selected_value == value %} is-active{% endif %}"
+                        data-pdp-option-btn
+                        data-option-index="{{ forloop.parentloop.index0 }}"
+                        data-option-value="{{ value | escape }}"
+                        title="{{ value | escape }}"
+                        aria-label="Select {{ value | escape }}"
+                      >
+                        <span class="swatch-dot" style="background-color: {{ swatch_hex }};"></span>
+                      </button>
+                    {%- endfor -%}
+                  </div>
+                {%- else -%}
+                  <div class="option-pills">
+                    {%- for value in option.values -%}
+                      <button
+                        type="button"
+                        class="option-btn{% if option.selected_value == value %} is-active{% endif %}"
+                        data-pdp-option-btn
+                        data-option-index="{{ forloop.parentloop.index0 }}"
+                        data-option-value="{{ value | escape }}"
+                      >
+                        {{ value }}
+                      </button>
+                    {%- endfor -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <div class="pdp-purchase-row">
+            <div class="qty-control">
+              <button type="button" data-pdp-qty-dec aria-label="Decrease quantity">&minus;</button>
+              <input type="number" name="quantity" value="1" min="1" max="10" class="mono" data-pdp-qty-input aria-label="{{ 'sections.product.quantity' | t }}">
+              <button type="button" data-pdp-qty-inc aria-label="Increase quantity">+</button>
+            </div>
+
+            <button
+              type="submit"
+              name="add"
+              class="btn btn-gold btn-lg pdp-add-btn"
+              data-pdp-submit
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              {%- if current_variant.available -%}
+                {{ 'sections.product.add_to_bag' | t }}
+              {%- else -%}
+                {{ 'sections.product.sold_out' | t }}
+              {%- endif -%}
+            </button>
+          </div>
+
+          <div class="pdp-dynamic-checkout">
+            {{ form | payment_button }}
+          </div>
+        {%- endform -%}
+
+        <div class="pdp-trust">
+          <div class="pdp-trust__item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" /><path d="M15 18H9" /><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" /><circle cx="17" cy="18" r="2" /><circle cx="7" cy="18" r="2" />
+            </svg>
+            <span>{{ section.settings.shipping_promise }}</span>
+          </div>
+          <div class="pdp-trust__item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /><path d="m9 12 2 2 4-4" />
+            </svg>
+            <span>{{ section.settings.warranty_promise }}</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Main",
+  "settings": [
+    {
+      "type": "text",
+      "id": "shipping_promise",
+      "label": "Shipping Promise",
+      "default": "Free tracked shipping over ₹1,500 · Dispatches within 24 hours"
+    },
+    {
+      "type": "text",
+      "id": "warranty_promise",
+      "label": "Warranty Promise",
+      "default": "Includes stainless steel containers, inline-switch power cord & 1-year warranty"
+    }
+  ]
+}
+{% endschema %}

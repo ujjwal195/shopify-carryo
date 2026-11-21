@@ -1,0 +1,217 @@
+{%- assign large_product = section.settings.large_product | default: all_products['carryo-large-electric-lunchbox'] -%}
+{%- assign small_product = section.settings.small_product | default: all_products['carryo-small-electric-lunchbox'] -%}
+
+<section id="shop" class="section-block section-border">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+        <h2 class="section-title">{{ section.settings.heading }}</h2>
+      </div>
+      <p class="section-sub">{{ section.settings.subtext }}</p>
+    </div>
+
+    <div class="lineup-grid">
+      <!-- Card 1: Carryo Large -->
+      <article class="product-card" data-lineup-card data-size="large" data-angle="kitDesk">
+        <script type="application/json" data-lineup-variants>
+          {
+            "defaultVariantId": {{ large_product.selected_or_first_available_variant.id | default: 'null' }},
+            "url": {{ large_product.url | default: '/collections/all' | json }},
+            "variants": {
+              {%- if large_product != blank -%}
+                {%- for v in large_product.variants -%}
+                  {%- assign v_key = v.title | downcase | handleize -%}
+                  {{ v_key | json }}: {{ v.id }}{% unless forloop.last %},{% endunless %}
+                {%- endfor -%}
+              {%- endif -%}
+            }
+          }
+        </script>
+
+        <a href="{{ large_product.url | default: '/collections/all' }}" class="product-card__media" aria-label="View Carryo Large Electric Lunchbox">
+          <img src="{{ 'carryo-tan-kit.jpg' | asset_url }}" alt="Carryo Large Electric Lunchbox in Tan" data-lineup-img loading="lazy" width="720" height="540">
+          <div class="card-svg-overlay" data-lineup-svg="light-blue" hidden>
+            {% render 'colour-swatch-svg', colour: 'light-blue', size: 'large' %}
+          </div>
+          <div class="card-svg-overlay" data-lineup-svg="light-pink" hidden>
+            {% render 'colour-swatch-svg', colour: 'light-pink', size: 'large' %}
+          </div>
+        </a>
+
+        <div class="product-card__body">
+          <div class="product-card__meta">
+            <span class="text-gold">Large Box &middot; 3 Containers</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>1,350 ml (3 &times; 450 ml)</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>In Stock</span>
+          </div>
+
+          <div class="product-card__head">
+            <h3 class="product-card__title">
+              <a href="{{ large_product.url | default: '/collections/all' }}">
+                {{ large_product.title | default: 'Carryo Large Electric Lunchbox' }}
+              </a>
+            </h3>
+            <div class="product-card__price-group">
+              {%- if large_product != blank and large_product.compare_at_price > large_product.price -%}
+                <span class="price-compare mono">{{ large_product.compare_at_price | money }}</span>
+              {%- elsif large_product == blank -%}
+                <span class="price-compare mono">₹2,999</span>
+              {%- endif -%}
+              <span class="price-current mono">
+                {%- if large_product != blank -%}{{ large_product.price | money }}{%- else -%}₹2,499{%- endif -%}
+              </span>
+            </div>
+          </div>
+
+          <p class="product-card__desc">
+            Spacious leatherette electric heating bag engineered for 3 stainless steel containers, with front zip pocket, back slip pocket, and detachable inline-switch cord.
+          </p>
+
+          <div class="product-card__footer">
+            <div class="label-row label-row--tight">
+              <span class="text-muted">Selected Colour: <strong class="text-ivory" data-lineup-colour-label>Tan</strong></span>
+              <span class="text-dim">5 colours available</span>
+            </div>
+            <div class="product-card__controls">
+              <div class="swatch-row">
+                <button type="button" class="swatch-btn swatch-btn--sm" data-lineup-swatch="black" data-colour-name="Black" title="Black"><span class="swatch-dot" style="background:#17181B"></span></button>
+                <button type="button" class="swatch-btn swatch-btn--sm is-active" data-lineup-swatch="tan" data-colour-name="Tan" title="Tan"><span class="swatch-dot" style="background:#A54D22"></span></button>
+                <button type="button" class="swatch-btn swatch-btn--sm" data-lineup-swatch="grey" data-colour-name="Grey" title="Grey"><span class="swatch-dot" style="background:#767B82"></span></button>
+                <button type="button" class="swatch-btn swatch-btn--sm" data-lineup-swatch="light-blue" data-colour-name="Light Blue" title="Light Blue"><span class="swatch-dot" style="background:#93BEDB"></span></button>
+                <button type="button" class="swatch-btn swatch-btn--sm" data-lineup-swatch="light-pink" data-colour-name="Light Pink" title="Light Pink"><span class="swatch-dot" style="background:#E6B9C5"></span></button>
+              </div>
+              <div class="product-card__actions">
+                <a href="{{ large_product.url | default: '/collections/all' }}" class="btn btn-surface btn-sm">View Gallery</a>
+                <button type="button" class="btn btn-gold btn-sm" data-lineup-add>+ Add to Bag</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2: Carryo Small -->
+      <article class="product-card" data-lineup-card data-size="small" data-angle="front">
+        <script type="application/json" data-lineup-variants>
+          {
+            "defaultVariantId": {{ small_product.selected_or_first_available_variant.id | default: 'null' }},
+            "url": {{ small_product.url | default: '/collections/all' | json }},
+            "variants": {
+              {%- if small_product != blank -%}
+                {%- for v in small_product.variants -%}
+                  {%- assign v_key = v.title | downcase | handleize -%}
+                  {{ v_key | json }}: {{ v.id }}{% unless forloop.last %},{% endunless %}
+                {%- endfor -%}
+              {%- endif -%}
+            }
+          }
+        </script>
+
+        <a href="{{ small_product.url | default: '/collections/all' }}" class="product-card__media" aria-label="View Carryo Small Electric Lunchbox">
+          <img src="{{ 'carryo-grey-front.jpg' | asset_url }}" alt="Carryo Small Electric Lunchbox in Grey" data-lineup-img loading="lazy" width="720" height="540">
+          <div class="card-svg-overlay" data-lineup-svg="light-blue" hidden>
+            {% render 'colour-swatch-svg', colour: 'light-blue', size: 'small' %}
+          </div>
+          <div class="card-svg-overlay" data-lineup-svg="light-pink" hidden>
+            {% render 'colour-swatch-svg', colour: 'light-pink', size: 'small' %}
+          </div>
+        </a>
+
+        <div class="product-card__body">
+          <div class="product-card__meta">
+            <span class="text-gold">Small Box &middot; 2 Containers</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>900 ml (2 &times; 450 ml)</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>In Stock</span>
+          </div>
+
+          <div class="product-card__head">
+            <h3 class="product-card__title">
+              <a href="{{ small_product.url | default: '/collections/all' }}">
+                {{ small_product.title | default: 'Carryo Small Electric Lunchbox' }}
+              </a>
+            </h3>
+            <div class="product-card__price-group">
+              {%- if small_product != blank and small_product.compare_at_price > small_product.price -%}
+                <span class="price-compare mono">{{ small_product.compare_at_price | money }}</span>
+              {%- elsif small_product == blank -%}
+                <span class="price-compare mono">₹2,299</span>
+              {%- endif -%}
+              <span class="price-current mono">
+                {%- if small_product != blank -%}{{ small_product.price | money }}{%- else -%}₹1,899{%- endif -%}
+              </span>
+            </div>
+          </div>
+
+          <p class="product-card__desc">
+            Every signature detail of Carryo—textured leatherette finish, gold emblem, front zip &amp; back pockets, and plug-in heating—in a sleeker 2-container silhouette.
+          </p>
+
+          <div class="product-card__footer">
+            <div class="label-row label-row--tight">
+              <span class="text-muted">Selected Colour: <strong class="text-ivory" data-lineup-colour-label>Grey</strong></span>
+              <span class="text-dim">5 colours available</span>
+            </div>
+            <div class="product-card__controls">
+              <div class="swatch-row">
+                <button type="button" class="swatch-btn swatch-btn--sm" data-lineup-swatch="black" data-colour-name="Black" title="Black"><span class="swatch-dot" style="background:#17181B"></span></button>
+                <button type="button" class="swatch-btn swatch-btn--sm" data-lineup-swatch="tan" data-colour-name="Tan" title="Tan"><span class="swatch-dot" style="background:#A54D22"></span></button>
+                <button type="button" class="swatch-btn swatch-btn--sm is-active" data-lineup-swatch="grey" data-colour-name="Grey" title="Grey"><span class="swatch-dot" style="background:#767B82"></span></button>
+                <button type="button" class="swatch-btn swatch-btn--sm" data-lineup-swatch="light-blue" data-colour-name="Light Blue" title="Light Blue"><span class="swatch-dot" style="background:#93BEDB"></span></button>
+                <button type="button" class="swatch-btn swatch-btn--sm" data-lineup-swatch="light-pink" data-colour-name="Light Pink" title="Light Pink"><span class="swatch-dot" style="background:#E6B9C5"></span></button>
+              </div>
+              <div class="product-card__actions">
+                <a href="{{ small_product.url | default: '/collections/all' }}" class="btn btn-surface btn-sm">View Gallery</a>
+                <button type="button" class="btn btn-gold btn-sm" data-lineup-add>+ Add to Bag</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carryo Lineup Showcase",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Carryo Lineup · 2 Sizes · 5 Colours Each"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose your size. Pick your colour."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Every Carryo electric lunchbox includes stainless steel containers, detachable inline-switch power cord, front zip pocket, and back slip pocket."
+    },
+    {
+      "type": "product",
+      "id": "large_product",
+      "label": "Carryo Large Product"
+    },
+    {
+      "type": "product",
+      "id": "small_product",
+      "label": "Carryo Small Product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carryo Lineup Showcase"
+    }
+  ]
+}
+{% endschema %}

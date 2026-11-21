@@ -1,0 +1,108 @@
+<section id="faq" class="section-block section-border">
+  <div class="container">
+    <div class="faq-grid">
+      <div class="faq-left">
+        <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+        <h2 class="section-title section-title--md">{{ section.settings.heading }}</h2>
+      </div>
+
+      <div class="faq-list" data-faq-accordion>
+        {%- for block in section.blocks -%}
+          <div class="faq-item{% if forloop.first %} is-open{% endif %}" data-faq-item {{ block.shopify_attributes }}>
+            <button type="button" class="faq-trigger" data-faq-trigger aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
+              <span>{{ block.settings.question }}</span>
+              <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+            <div class="faq-panel" data-faq-panel {% unless forloop.first %}hidden{% endunless %}>
+              <p>{{ block.settings.answer }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carryo FAQ Accordion",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Questions"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Everything you should know before ordering."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is the difference between Carryo Large and Carryo Small?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Carryo Large includes 3 stainless steel containers (1,350 ml) while Carryo Small includes 2 stainless steel containers (900 ml)."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carryo FAQ Accordion",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What is the difference between Carryo Large and Carryo Small?",
+            "answer": "Carryo Large is our full-meal electric lunchbox that includes 3 stainless steel containers (1,350 ml total capacity)—ideal for dal, sabzi, rice, and rotis. Carryo Small is a sleeker, lighter 2-container version (900 ml total) designed for lighter lunches and compact commutes. Both come in all 5 colours with the same plug-in inline-switch heating."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How does Carryo heat my food?",
+            "answer": "Simply keep your packed stainless steel containers inside the zipped Carryo bag, connect the detachable power cord to the side port, plug it into a standard wall socket, and flip the inline switch on. The LED light turns on and your meal heats gently to piping-hot perfection in 20–30 minutes—no water required."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Which colours are available?",
+            "answer": "Both Carryo Large and Carryo Small are available in 5 colours: Black, Tan, Grey, Light Blue, and Light Pink. All finishes feature our textured premium leatherette exterior, matching handles, front zip pocket, back pocket, and metallic gold Carryo emblem."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How do I clean the containers and the electric bag?",
+            "answer": "Remove the stainless steel containers and wash them normally by hand or in a dishwasher. For the heated bag interior, unplug the power cord completely and wipe the waterproof thermal lining with a soft damp cloth—never submerge the bag in water."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Where do I store the power cord when commuting?",
+            "answer": "The detachable power cord with its inline switch folds neatly into the dedicated front zippered pocket, while the back slip pocket holds napkins, cutlery, or your office ID."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

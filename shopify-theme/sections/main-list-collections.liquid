@@ -1,0 +1,40 @@
+<section class="section-block">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Catalog</p>
+      <h1 class="section-title">Collections</h1>
+    </div>
+
+    <div class="lookbook-grid">
+      {%- for collection in collections -%}
+        <a href="{{ collection.url }}" class="lookbook-card">
+          <div class="lookbook-card__media">
+            {%- if collection.image -%}
+              <img src="{{ collection.image | image_url: width: 800 }}" alt="{{ collection.title | escape }}" loading="lazy" width="600" height="450">
+            {%- elsif collection.products.first.featured_image -%}
+              <img src="{{ collection.products.first.featured_image | image_url: width: 800 }}" alt="{{ collection.title | escape }}" loading="lazy" width="600" height="450">
+            {%- else -%}
+              <img src="{{ 'carryo-black-action.jpg' | asset_url }}" alt="{{ collection.title | escape }}" loading="lazy" width="600" height="450">
+            {%- endif -%}
+          </div>
+          <div class="lookbook-card__body">
+            <div>
+              <p class="lookbook-card__title">{{ collection.title }}</p>
+              <p class="lookbook-card__sub">{{ collection.products_count }} products</p>
+            </div>
+            <svg class="lookbook-card__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+            </svg>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "List Collections",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,44 @@
+<section class="section-block">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Search</p>
+      <h1 class="section-title">{{ 'general.search.title' | t }}</h1>
+    </div>
+
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-bar">
+      <input
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ 'general.search.placeholder' | t }}"
+        class="form-input"
+      >
+      <input type="hidden" name="type" value="product">
+      <button type="submit" class="btn btn-gold">{{ 'general.search.submit' | t }}</button>
+    </form>
+
+    {%- if search.performed -%}
+      {%- if search.results_count > 0 -%}
+        <div class="lineup-grid" style="margin-top: 2.5rem;">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product: item %}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <div class="empty-state" style="margin-top: 2.5rem;">
+          <p class="empty-state__title">{{ 'general.search.no_results' | t }}</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn-gold">Browse All Lunchboxes</a>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search Results",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-carryo-obsidian: #080809;
+  --color-carryo-surface: #111114;
+  --color-carryo-elevated: #18181C;
+  --color-carryo-border: #26262C;
+  --color-carryo-gold: #E0B052;
+  --color-carryo-gold-hover: #ECC46E;
+  --color-carryo-gold-deep: #B8862D;
+  --color-carryo-ivory: #F5F3EE;
+  --color-carryo-muted: #A1A1AA;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    background-color: var(--color-carryo-obsidian);
+    color: var(--color-carryo-ivory);
+    color-scheme: dark;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+
+  button, a, input, select, textarea {
+    outline-color: var(--color-carryo-gold);
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  header, footer, .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #080809 !important;
+  }
+}

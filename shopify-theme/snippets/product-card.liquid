@@ -1,0 +1,100 @@
+{%- comment -%}
+  Carryo Product Card snippet for collections, search, and featured grids.
+  Accepts: product (Shopify Product object)
+{%- endcomment -%}
+{%- assign first_variant = product.selected_or_first_available_variant -%}
+<article class="product-card" data-product-card>
+  <a href="{{ product.url }}" class="product-card__media" aria-label="{{ product.title | escape }}">
+    {%- if product.featured_image -%}
+      <img
+        src="{{ product.featured_image | image_url: width: 900 }}"
+        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+        loading="lazy"
+        width="640"
+        height="480"
+        data-card-image
+      >
+    {%- else -%}
+      <img
+        src="{{ 'carryo-tan-kit.jpg' | asset_url }}"
+        alt="{{ product.title | escape }}"
+        loading="lazy"
+        width="640"
+        height="480"
+        data-card-image
+      >
+    {%- endif -%}
+  </a>
+
+  <div class="product-card__body">
+    <div class="product-card__meta">
+      <span class="text-gold">{{ product.type | default: 'Electric Lunchbox' }}</span>
+      <span aria-hidden="true">&middot;</span>
+      <span>{%- if product.available -%}In Stock{%- else -%}Sold Out{%- endif -%}</span>
+    </div>
+
+    <div class="product-card__head">
+      <h3 class="product-card__title">
+        <a href="{{ product.url }}">{{ product.title }}</a>
+      </h3>
+      <div class="product-card__price-group">
+        {%- if first_variant.compare_at_price > first_variant.price -%}
+          <span class="price-compare mono">{{ first_variant.compare_at_price | money }}</span>
+        {%- endif -%}
+        <span class="price-current mono">{{ first_variant.price | money }}</span>
+      </div>
+    </div>
+
+    {%- if product.description != blank -%}
+      <p class="product-card__desc">{{ product.description | strip_html | truncate: 155 }}</p>
+    {%- endif -%}
+
+    <div class="product-card__footer">
+      {%- if product.variants.size > 1 -%}
+        <div class="swatch-row">
+          {%- for variant in product.variants limit: 5 -%}
+            {%- assign v_name_down = variant.title | downcase -%}
+            {%- assign swatch_hex = '#17181B' -%}
+            {%- if v_name_down contains 'tan' -%}
+              {%- assign swatch_hex = '#A54D22' -%}
+            {%- elsif v_name_down contains 'grey' or v_name_down contains 'gray' -%}
+              {%- assign swatch_hex = '#767B82' -%}
+            {%- elsif v_name_down contains 'blue' -%}
+              {%- assign swatch_hex = '#93BEDB' -%}
+            {%- elsif v_name_down contains 'pink' -%}
+              {%- assign swatch_hex = '#E6B9C5' -%}
+            {%- endif -%}
+            <button
+              type="button"
+              class="swatch-btn swatch-btn--sm {% if forloop.first %}is-active{% endif %}"
+              title="{{ variant.title | escape }}"
+              aria-label="Select {{ variant.title | escape }}"
+              data-card-swatch
+              data-variant-id="{{ variant.id }}"
+              {% if variant.featured_image %}data-variant-image="{{ variant.featured_image | image_url: width: 900 }}"{% endif %}
+            >
+              <span class="swatch-dot" style="background-color: {{ swatch_hex }};"></span>
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="product-card__actions">
+        <a href="{{ product.url }}" class="btn btn-surface btn-sm">View Gallery</a>
+        <button
+          type="button"
+          class="btn btn-gold btn-sm"
+          data-quick-add
+          data-variant-id="{{ first_variant.id }}"
+          {% unless first_variant.available %}disabled{% endunless %}
+        >
+          {%- if first_variant.available -%}
+            + {{ 'sections.product.add_to_bag' | t }}
+          {%- else -%}
+            {{ 'sections.product.sold_out' | t }}
+          {%- endif -%}
+        </button>
+      </div>
+    </div>
+  </div>
+</article>

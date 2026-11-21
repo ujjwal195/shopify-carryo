@@ -1,0 +1,40 @@
+<section class="section-block">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Carryo Collection</p>
+      <h1 class="section-title">{{ collection.title | default: 'All Electric Lunchboxes' }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="section-sub">{{ collection.description }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- paginate collection.products by 12 -%}
+      {%- if collection.products.size > 0 -%}
+        <div class="lineup-grid">
+          {%- for product in collection.products -%}
+            {% render 'product-card', product: product %}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination" role="navigation" aria-label="Pagination">
+            {{ paginate | default_pagination }}
+          </nav>
+        {%- endif -%}
+      {%- else -%}
+        <div class="empty-state">
+          <p class="empty-state__title">No products in this collection yet.</p>
+          <p class="empty-state__sub">Import the included carryo-products-shopify.csv file in Shopify Admin &rarr; Products to populate Carryo Large and Carryo Small in all 5 colours.</p>
+          <a href="{{ routes.root_url }}" class="btn btn-gold">Return Home</a>
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "settings": []
+}
+{% endschema %}

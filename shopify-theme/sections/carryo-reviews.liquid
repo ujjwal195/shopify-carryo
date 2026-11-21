@@ -1,0 +1,138 @@
+<section class="section-block section-border">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="section-title section-title--md">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="reviews-grid">
+      {%- for block in section.blocks -%}
+        <article class="review-card" {{ block.shopify_attributes }}>
+          <div>
+            <div class="review-card__top">
+              <div class="star-row" aria-label="5 out of 5 stars">
+                {%- for i in (1..5) -%}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                {%- endfor -%}
+              </div>
+              <span class="text-muted text-xs">{{ block.settings.date }}</span>
+            </div>
+            <h3 class="review-card__headline">{{ block.settings.headline }}</h3>
+            <p class="review-card__body">{{ block.settings.body }}</p>
+          </div>
+          <div class="review-card__footer">
+            <p class="review-card__author">{{ block.settings.author }}</p>
+            <p class="review-card__role">{{ block.settings.role }}</p>
+            <p class="review-card__meta">{{ block.settings.purchase_meta }}</p>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carryo Verified Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Verified Owners · 4.9 / 5 Average across 627 reviews"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Loved across offices, hospitals, and studios."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Customer Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Review Headline",
+          "default": "Looks like a leather brief, heats like a kitchen stove"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Review Text",
+          "default": "Most colleagues didn't even realize it was an electric tiffin until I plugged the cord into my desk socket."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name",
+          "default": "Rohan Deshmukh"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Role & City",
+          "default": "Senior Product Manager, Razorpay, Bengaluru"
+        },
+        {
+          "type": "text",
+          "id": "purchase_meta",
+          "label": "Verified Purchase Label",
+          "default": "Verified purchase · Carryo Large (3 Containers) · Tan"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "default": "October 2026"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carryo Verified Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "headline": "Looks like a leather brief, heats like a kitchen stove",
+            "body": "Most colleagues didn’t even realize it was an electric tiffin until I plugged the white cord into my desk socket. Twenty-five minutes later my dal, sabzi, and rice are genuinely steaming hot—and the cord tucks right back into the front zip pocket.",
+            "author": "Rohan Deshmukh",
+            "role": "Senior Product Manager, Razorpay, Bengaluru",
+            "purchase_meta": "Verified purchase · Carryo Large (3 Containers) · Tan",
+            "date": "October 2026"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "headline": "Zero spills in transit and easy wipe-clean inside",
+            "body": "I carry the Black Carryo Large on 12-hour hospital duties. The textured leatherette looks sharp, the back pocket holds my napkins and cutlery, and the stainless steel containers keep rasam and rice hot without needing a microwave.",
+            "author": "Dr. Meera Krishnan",
+            "role": "Emergency Medicine Resident, Apollo Hospitals, Chennai",
+            "purchase_meta": "Verified purchase · Carryo Large (3 Containers) · Black",
+            "date": "October 2026"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "headline": "Compact outside, surprisingly spacious inside",
+            "body": "I picked the Small box in Grey for lighter office days. It easily holds two full steel bowls, heats evenly with the simple inline switch, and feels worlds apart from clunky plastic electric lunchboxes.",
+            "author": "Ananya Verma",
+            "role": "Principal Architect, Studio Kora, Mumbai",
+            "purchase_meta": "Verified purchase · Carryo Small (2 Containers) · Grey",
+            "date": "November 2026"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
